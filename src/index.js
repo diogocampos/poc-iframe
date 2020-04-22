@@ -9,7 +9,7 @@ listenOnce(window, 'message', (event) => {
   startApp({
     ...config,
     onNext: (data) => {
-      return postMessage(window.parent, data, event.origin)
+      return postMessageAndWaitForResponse(window.parent, data)
     },
   })
 })
@@ -29,8 +29,7 @@ function startApp(config) {
 
 // Helpers
 
-async function postMessage(targetWindow, data, targetOrigin) {
-  console.log(targetOrigin)
+async function postMessageAndWaitForResponse(targetWindow, data) {
   targetWindow.postMessage(data, '*')
   return new Promise((resolve) => {
     listenOnce(window, 'message', (event) => resolve(event.data))
