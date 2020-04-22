@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html,
+      body,
+      #checkout {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <iframe id="checkout" src="http://localhost:3000"></iframe>
+    <script src="./checkout.js"></script>
+    <script>
+      TransparentCheckout({
+        iframe: document.getElementById('checkout'),
+        gatewayApiKey: 'abcxyz',
+        payment: {
+          amount: 300.0,
+        },
+        steps: ['userData', 'success'],
+        onNextStep,
+      })
+
+      function onNextStep(data) {
+        console.log(data)
+      }
+    </script>
+  </body>
+</html>
